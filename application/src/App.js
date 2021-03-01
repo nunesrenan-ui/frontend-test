@@ -1,9 +1,12 @@
+import Header from './components/Header';
+import Cards from './components/Cards';
+import './App.css';
 
-
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>Hello World Marvel Api</h1>
+      <Header/>
+      <Cards/>
     </div>
   );
 }
