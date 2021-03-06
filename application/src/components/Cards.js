@@ -1,9 +1,13 @@
-import React from  'react';
+import React, { useState } from  'react';
 import './Cards.css'
 
-const Cards = () => {
+const Cards = ({data}) => {
+    const results = data.data.results;
+    
+    console.log(results);
+    
     return(
-        <div className="Cards">
+        <div className="CardsHeader">
             <div className="container">
                 <span>Encontrados 20 herois</span>
                 <div className="wrapper">
@@ -14,11 +18,21 @@ const Cards = () => {
                     <span>Somente Favoritos</span>
                 </div>
             </div>
-            <div>
-                <img />
+
+            <div className="cards-container">
+               { results.map(({name}) => {
+
+                    return(
+                        <div className="card">
+                            <div className="image"></div>
+                            <h1>{name}</h1>
+                        </div> 
+                    )   
+                })}
             </div>
         </div>
     )
 }
 
 export default Cards;
+

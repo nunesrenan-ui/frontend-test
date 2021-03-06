@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Header.css";
+import Cards from './Cards';
 
 
 
@@ -8,11 +9,22 @@ import "./Header.css";
 const Header = () => {
 
     const [name, setName] = useState('');
+
+    const [data, setData] = useState(false);
+    //console.log(data);
+    useEffect(() => {
+        fetch('https://gateway.marvel.com/v1/public/characters?ts=1&apikey=3f3b2601af6f85c4b73c5f8cd83358e6&hash=c967a17c3b09bf37e97c70f0b4d15088')
+        .then(response => response.json())
+        .then(json => setData(json.data))
+    },[]);
     
     function handleSubmit(e){
         e.preventDefault();
         fetch(`https://gateway.marvel.com/v1/public/characters?name=${name}&ts=1&apikey=3f3b2601af6f85c4b73c5f8cd83358e6&hash=c967a17c3b09bf37e97c70f0b4d15088`)
-        .then(response => console.log(response.json()))
+        .then((response) => {
+            let json = response.json(); 
+            //console.log(json);
+        })
     }
 
     return(
@@ -24,7 +36,8 @@ const Header = () => {
                 <input type="text" value={name} onChange={event => setName(event.target.value)} />
                 <p>{name}</p>
             </form>
-                
+            {data && <Cards data={{data}}/>}    
+            
         </div>
     )
 
